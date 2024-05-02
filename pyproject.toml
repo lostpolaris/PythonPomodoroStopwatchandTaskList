@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "pomolaptimer"
+version = "0.1.0"
+description = ""
+authors = ["lostpolaris <me@lostpolaris.com>"]
+readme = "README.md"
+
+
+[tool.poetry.dependencies]
+python = ">=3.11,<3.13"
+PyQt6 = "^6.6.1"
+pyside6 = "^6.7.0"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^24.4.0"
+pyinstaller = "^6.6.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
