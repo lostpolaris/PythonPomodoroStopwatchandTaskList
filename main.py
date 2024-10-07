@@ -21,9 +21,14 @@ from PySide6.QtCore import Qt, QElapsedTimer, QTimer, QSize, QSettings, Slot
 from PySide6.QtGui import QAction, QIcon, QMovie
 
 from datetime import timedelta
+import os
 import sys
-from src import constants
+import utils.constants as constants
 
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
+    return os.path.join(base_path, relative_path)
 
 class TaskTable(QTableWidget):
     def __init__(self):
@@ -160,7 +165,7 @@ class TimerWidget(QWidget):
             label = QLabel()
             label.setGeometry(0, 0, self.parent.width(), self.parent.height())
             label.setScaledContents(True)
-            video = QMovie("./media/giphy1.gif")
+            video = QMovie(resource_path("media/giphy1.gif"))
             label.setMovie(video)
             video.setScaledSize(QSize(self.parent.width(), self.parent.height()))
             video.start()
@@ -204,7 +209,7 @@ class MainWindow(QMainWindow):
         super().__init__()
 
         self.setWindowTitle("Polaris Pomo")
-        self.setWindowIcon(QIcon("./logo.png"))
+        self.setWindowIcon(QIcon(resource_path("media/logo.png")))
 
         stack_widget = QStackedWidget()
         timer_widget = TimerWidget(stack_widget)
@@ -236,6 +241,6 @@ class MainWindow(QMainWindow):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    app.setStyleSheet(Path("./src/stylesheet.css").read_text())
+    app.setStyleSheet(Path(resource_path("utils/stylesheet.css")).read_text())
     w = MainWindow()
     sys.exit(app.exec())
